@@ -1,0 +1,42 @@
+===============================
+GIT
+===============================
+
+nano ~/.bashrc
+exec bash
+
+nano ~/.gitignore
+
+git status
+
+git add README
+
+git commit -m "Modify lines int README"
+
+git diff --staged
+git diff
+
+git log -p 
+git log --stat
+
+
+===============================
+GIT_HUB
+===============================
+
+nano /home/deiliet/.ssh/id_rsa
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+
+Для копирования репозитория с GitHub выполните команду git clone:
+git clone ssh://git@github.com/pyneng/online-2-natasha-samoylenko.git
+git clone https://github.com/natenka/pyneng-examples-exercises
+
+синхронизация локального содержимого с GitHub командой 
+git pull
+изменение файлов репозитория добавление изменённых файлов 
+git add
+фиксация изменений через коммит командой 
+git commit
+передача локальных изменений в репозитории на GitHub командой 
+git push
