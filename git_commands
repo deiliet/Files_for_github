@@ -11,14 +11,20 @@ git status
 
 git add README
 
+Применить изменения
 git commit -m "Modify lines int README"
+git commit -a -m "Modify lines int README"
+
+Отменить изменения
+git checkout exercises/04_data_structures/task_4_1.py
 
 git diff --staged
 git diff
 
 git log -p 
+git log -p -1
+git log -p ..origin/master
 git log --stat
-
 
 ===============================
 GIT_HUB
