@@ -1,0 +1,6 @@
+cd netbox-docker/
+
+sudo docker-compose up
+
+sudo docker ps
+sudo docker images
