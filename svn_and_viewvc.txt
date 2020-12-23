@@ -58,6 +58,8 @@ Here are the steps to setup ViewVC on Ubuntu Linux with Apache2 installed. These
 
     svn_roots = repo1: /svn/repos/repo1, repo2: /svn/repos/repo2
 
+    svn_roots = Config_Backups: /home/deiliet/Config_Backups
+
     5. Check if cgi module is enabled/loaded
     $ apache2ctl -M | grep cgi
      cgi_module (shared)
@@ -67,7 +69,7 @@ Here are the steps to setup ViewVC on Ubuntu Linux with Apache2 installed. These
 
     7. Grant access to your new web-server
     sudo nano /etc/apache2/apache2.conf
-    
+
     <Directory />
             Options FollowSymLinks
             AllowOverride All
