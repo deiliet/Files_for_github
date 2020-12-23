@@ -1,0 +1,60 @@
+Here are the steps to setup ViewVC on Ubuntu Linux with Apache2 installed. These instructions assume that you have installed and setup svn already.
+
+    1. First install svn, viewvc and apache2 packages.
+
+    apt-get install subversion
+    apt-get install viewvc
+    apt-get install apache2
+
+    2. These are the steps to install a test repository at /svn/repos/repo1
+
+    	a) Create from defind user
+    	sudo mkdir /svn
+    	sudo chown www-data /svn
+    	sudo -u www-data mkdir /svn/repos
+    	sudo -u www-data svnadmin create /svn/repos/repo1
+
+    	b) Create, Check and Commit SVN-repository. "svn checkout" is very necessary.
+    	svnadmin create /home/deiliet/Config_Backups
+		cd /home/deiliet/Config_Backups
+		cd ..
+		svn checkout file:///home/deiliet/Config_Backups
+
+		mkdir /home/deiliet/Config_Backups/Device1
+		nano /home/deiliet/Config_Backups/Device1/config1.txt
+
+		svn add /home/deiliet/Config_Backups/Device1
+		svn commit /home/deiliet/Config_Backups -m "22.12.2020"
+
+    3. This will create an empty repository at /svn/repos/repo1. It should be owned by www-data as Apache runs as www-data and should be able to write here. I have also created file1.txt (2 revisions) and file2.txt in repo1 by checking out the source code.
+    Change Apache conf file corresponding to svn and add these lines:
+
+    Alias /viewvc-static /usr/lib/python2.4/site-packages/viewvc/templates-contrib/newvc/templates/docroot
+    ScriptAlias /viewvc /usr/lib/viewvc/cgi-bin/viewvc.cgi
+
+    4. This will setup http://yoursvnserver.com/viewvc as url for browsing repository.
+    Add this config entry to /etc/viewvc/viewvc.conf at appropriate place:
+
+    svn_roots = repo1: /svn/repos/repo1
+
+    You can also add multiple svn repositories here by separating them with “,”. e.g.
+
+    svn_roots = repo1: /svn/repos/repo1, repo2: /svn/repos/repo2
+
+    5. Check if cgi module is enabled/loaded
+
+    $ apache2ctl -M | grep cgi
+     cgi_module (shared)
+
+    6. If it is not loaded, then run the following to enable it (Thanks Eric for the suggestion):
+
+    $ sudo a2enmod cgi
+
+    7. Restart apache
+
+    $ sudo service apache2 restart
+
+    Now browse  http://yoursvnserver.com/viewvc. Here is what you should see in ui:
+
+
+
