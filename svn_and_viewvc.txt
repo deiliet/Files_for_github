@@ -27,10 +27,27 @@ Here are the steps to setup ViewVC on Ubuntu Linux with Apache2 installed. These
 		svn commit /home/deiliet/Config_Backups -m "22.12.2020"
 
     3. This will create an empty repository at /svn/repos/repo1. It should be owned by www-data as Apache runs as www-data and should be able to write here. I have also created file1.txt (2 revisions) and file2.txt in repo1 by checking out the source code.
-    Change Apache conf file corresponding to svn and add these lines:
+        
+        a)
+        Change Apache conf file corresponding to svn and add these lines:
+        Alias /viewvc-static /usr/lib/python2.4/site-packages/viewvc/templates-contrib/newvc/templates/docroot
+        ScriptAlias /viewvc /usr/lib/viewvc/cgi-bin/viewvc.cgi
 
-    Alias /viewvc-static /usr/lib/python2.4/site-packages/viewvc/templates-contrib/newvc/templates/docroot
-    ScriptAlias /viewvc /usr/lib/viewvc/cgi-bin/viewvc.cgi
+        b)
+        Edit the SVN configuration file
+        sudo nano /etc/apache2/mods-enabled/dav_svn.conf
+
+        Add this line to the end of the dav_svn.conf file
+        ScriptAlias /viewvc /usr/lib/cgi-bin/viewvc.cgi
+
+        Now edit the viewvc.conf file
+        sudo nano /etc/viewvc/viewvc.conf
+
+        Look for root_parents and uncomment this (remove # symbol), change the line to:
+        root_parents = /var/www : svn
+
+        Restart apache server
+        sudo /etc/init.d/apache2 restart
 
     4. This will setup http://yoursvnserver.com/viewvc as url for browsing repository.
     Add this config entry to /etc/viewvc/viewvc.conf at appropriate place:
